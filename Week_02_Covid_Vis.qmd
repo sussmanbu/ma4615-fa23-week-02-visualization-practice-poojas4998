@@ -1,7 +1,7 @@
 ---
 title: "Week 02: COVID Visualization Activity"
 date: "September, 11 2023"
-author: "**`[[`**Your Name**`]]`**"
+author: "Pooja Savla"
 ---
 
 Today, we'll be working with a data set related to COVID.
@@ -36,6 +36,25 @@ covid_data_count |>
 ```
 
 1. Write code for a plot and describe what you observe?
+
+```{r}
+covid_data_long_new <- covid_data_long %>% pivot_wider(names_from = count_type,values_from = count)
+ggplot(covid_data_long_new, aes(x = date, y = Cases)) + geom_point()
+
+covid_data_long |> 
+  filter(state == "MA") |> filter(count_type == "Cases") |>
+  ggplot(aes(x = date, y = count, color = race)) + geom_line()
+
+covid_data_long_new <- covid_data_long %>% pivot_wider(names_from = count_type,values_from = count)
+
+
+
+ggplot(data = covid_data_long) +
+  geom_bar(mapping = aes(x = count_type, y = count, fill = race), stat = "identity")
+```
+
 2. Are there any conclusions you can draw?
+
+
 3. What were you not able to do due to not having the R knowledge?
 4. What other data would be useful to better understand this data?
