@@ -38,23 +38,63 @@ covid_data_count |>
 1. Write code for a plot and describe what you observe?
 
 ```{r}
-covid_data_long_new <- covid_data_long %>% pivot_wider(names_from = count_type,values_from = count)
-ggplot(covid_data_long_new, aes(x = date, y = Cases)) + geom_point()
+covid_data_count %>%
+  filter(state == "MT") %>%
+  ggplot(aes(x = date, y = Cases, color = race)) +
+  geom_line(alpha = 0.7) +
+  labs(
+    x = "Date",
+    y = "Cases",
+    color = "Race",
+    title = "COVID-19 Cases in Montana by Race"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    panel.background = element_rect(fill = "lightgray"),  # Custom background color
+    panel.grid.major = element_blank(),  # Remove major grid lines
+    plot.title = element_text(hjust = 0.5)  # Center the plot title
+  ) 
 
-covid_data_long |> 
-  filter(state == "MA") |> filter(count_type == "Cases") |>
-  ggplot(aes(x = date, y = count, color = race)) + geom_line()
-
-covid_data_long_new <- covid_data_long %>% pivot_wider(names_from = count_type,values_from = count)
-
-
-
-ggplot(data = covid_data_long) +
-  geom_bar(mapping = aes(x = count_type, y = count, fill = race), stat = "identity")
 ```
 
 2. Are there any conclusions you can draw?
 
+Here are the conclusions drawn from the plot:
+
+Firstly, In January, there was a notable spike in COVID-19 cases within the "Black" racial community.
+Secondly, The racial group with the highest number of COVID-19 cases overall was the "White" community.
+Thirdly,  A significant surge in COVID-19 cases occurred within the "White" community during the period spanning November to December.
+Fourthly, Between April and July, there were no substantial increases in COVID-19 cases, with case numbers remaining relatively low. A linear increase in cases was observed from July to September, followed by a departure from linear growth after October, indicating a more varied trend in total COVID-19 cases during that time.
+
 
 3. What were you not able to do due to not having the R knowledge?
+
+As a beginner in R, I successfully filtered the data for the state of Montana in the provided code. However, my proficiency in advanced data manipulation techniques, such as reshaping data, joining datasets, or handling missing values, is limited. Additionally, while I added a smoothed line with confidence intervals to the plot, my understanding of the statistical methods behind it and my knowledge of performing more advanced statistical analyses in R are currently limited.
+
 4. What other data would be useful to better understand this data?
+
+To gain a more comprehensive understanding of the COVID-19 situation, it would be beneficial to gather additional types of data:
+
+1. **Demographic Information**: 
+Collecting data on the population's demographics, such as 
+age, 
+gender, 
+socioeconomic status, and 
+underlying health conditions, 
+can help pinpoint vulnerable groups and shed light on how COVID-19 affects various segments of society.
+
+2. **Vaccination Records**: 
+Compiling data related to COVID-19 vaccinations, including:
+the total number of vaccinated individuals, 
+vaccination rates across different demographic groups, and 
+details about the types of vaccines administered, 
+can provide valuable insights into the success of vaccination efforts.
+
+3. **Testing Records**: 
+Gathering information about COVID-19 testing, including:
+the total number of tests conducted, 
+the methods used for testing, 
+and the outcomes (positive, negative, or inconclusive), 
+is crucial for assessing the capacity and accuracy of the testing infrastructure.
+
